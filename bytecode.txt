@@ -1,0 +1,1106 @@
+------ add ------
+ 10           0 LOAD_FAST                0 (v1)
+              2 LOAD_CONST               1 (0)
+              4 BINARY_SUBSCR
+              6 LOAD_FAST                1 (v2)
+              8 LOAD_CONST               1 (0)
+             10 BINARY_SUBSCR
+             12 BINARY_ADD
+             14 LOAD_FAST                0 (v1)
+             16 LOAD_CONST               2 (1)
+             18 BINARY_SUBSCR
+             20 LOAD_FAST                1 (v2)
+             22 LOAD_CONST               2 (1)
+             24 BINARY_SUBSCR
+             26 BINARY_ADD
+             28 LOAD_FAST                0 (v1)
+             30 LOAD_CONST               3 (2)
+             32 BINARY_SUBSCR
+             34 LOAD_FAST                1 (v2)
+             36 LOAD_CONST               3 (2)
+             38 BINARY_SUBSCR
+             40 BINARY_ADD
+             42 BUILD_TUPLE              3
+             44 RETURN_VALUE
+
+------ compute_color ------
+164           0 LOAD_FAST                0 (obj)
+              2 LOAD_CONST               1 ('ambiant')
+              4 BINARY_SUBSCR
+              6 STORE_FAST               4 (a)
+
+165           8 LOAD_GLOBAL              0 (mul)
+             10 LOAD_GLOBAL              1 (dot)
+             12 LOAD_FAST                3 (l)
+             14 LOAD_FAST                2 (n)
+             16 CALL_FUNCTION            2
+             18 LOAD_FAST                0 (obj)
+             20 LOAD_CONST               2 ('diffuse')
+             22 BINARY_SUBSCR
+             24 CALL_FUNCTION            2
+             26 STORE_FAST               5 (d)
+
+166          28 LOAD_GLOBAL              0 (mul)
+             30 LOAD_GLOBAL              2 (abs)
+             32 LOAD_GLOBAL              1 (dot)
+             34 LOAD_FAST                2 (n)
+             36 LOAD_GLOBAL              3 (normalize)
+             38 LOAD_GLOBAL              4 (add)
+             40 LOAD_FAST                3 (l)
+             42 LOAD_FAST                1 (v)
+             44 CALL_FUNCTION            2
+             46 CALL_FUNCTION            1
+             48 CALL_FUNCTION            2
+             50 CALL_FUNCTION            1
+             52 LOAD_FAST                0 (obj)
+             54 LOAD_CONST               3 ('shininess')
+             56 BINARY_SUBSCR
+             58 LOAD_CONST               4 (4)
+             60 BINARY_TRUE_DIVIDE
+             62 BINARY_POWER
+             64 LOAD_FAST                0 (obj)
+             66 LOAD_CONST               5 ('specular')
+             68 BINARY_SUBSCR
+             70 CALL_FUNCTION            2
+             72 STORE_FAST               6 (s)
+
+167          74 LOAD_GLOBAL              4 (add)
+             76 LOAD_FAST                4 (a)
+             78 LOAD_GLOBAL              4 (add)
+             80 LOAD_FAST                5 (d)
+             82 LOAD_FAST                6 (s)
+             84 CALL_FUNCTION            2
+             86 CALL_FUNCTION            2
+             88 RETURN_VALUE
+
+------ dot ------
+ 22           0 LOAD_FAST                0 (v1)
+              2 LOAD_CONST               1 (0)
+              4 BINARY_SUBSCR
+              6 LOAD_FAST                1 (v2)
+              8 LOAD_CONST               1 (0)
+             10 BINARY_SUBSCR
+             12 BINARY_MULTIPLY
+             14 LOAD_FAST                0 (v1)
+             16 LOAD_CONST               2 (1)
+             18 BINARY_SUBSCR
+             20 LOAD_FAST                1 (v2)
+             22 LOAD_CONST               2 (1)
+             24 BINARY_SUBSCR
+             26 BINARY_MULTIPLY
+             28 BINARY_ADD
+             30 LOAD_FAST                0 (v1)
+             32 LOAD_CONST               3 (2)
+             34 BINARY_SUBSCR
+             36 LOAD_FAST                1 (v2)
+             38 LOAD_CONST               3 (2)
+             40 BINARY_SUBSCR
+             42 BINARY_MULTIPLY
+             44 BINARY_ADD
+             46 RETURN_VALUE
+
+------ init_image ------
+ 91           0 LOAD_GLOBAL              0 (bytearray)
+              2 LOAD_FAST                0 (w)
+              4 LOAD_FAST                1 (h)
+              6 BINARY_MULTIPLY
+              8 LOAD_CONST               1 (3)
+             10 BINARY_MULTIPLY
+             12 CALL_FUNCTION            1
+             14 STORE_FAST               2 (img)
+
+ 92          16 LOAD_FAST                2 (img)
+             18 LOAD_FAST                0 (w)
+             20 LOAD_FAST                1 (h)
+             22 BUILD_TUPLE              3
+             24 RETURN_VALUE
+
+------ load_scene ------
+214           0 EXTENDED_ARG             1
+              2 SETUP_FINALLY          328 (to 332)
+
+215           4 LOAD_GLOBAL              0 (open)
+              6 LOAD_FAST                0 (chemin)
+              8 LOAD_CONST               1 ('r')
+             10 CALL_FUNCTION            2
+             12 EXTENDED_ARG             1
+             14 SETUP_WITH             274 (to 290)
+             16 STORE_FAST               1 (f)
+
+216          18 LOAD_GLOBAL              1 (int)
+             20 LOAD_FAST                1 (f)
+             22 LOAD_METHOD              2 (readline)
+             24 CALL_METHOD              0
+             26 CALL_FUNCTION            1
+             28 STORE_FAST               2 (w)
+
+217          30 LOAD_GLOBAL              1 (int)
+             32 LOAD_FAST                1 (f)
+             34 LOAD_METHOD              2 (readline)
+             36 CALL_METHOD              0
+             38 CALL_FUNCTION            1
+             40 STORE_FAST               3 (h)
+
+218          42 LOAD_GLOBAL              3 (float)
+             44 LOAD_FAST                1 (f)
+             46 LOAD_METHOD              2 (readline)
+             48 CALL_METHOD              0
+             50 CALL_FUNCTION            1
+             52 STORE_FAST               4 (xmin)
+
+219          54 LOAD_GLOBAL              3 (float)
+             56 LOAD_FAST                1 (f)
+             58 LOAD_METHOD              2 (readline)
+             60 CALL_METHOD              0
+             62 CALL_FUNCTION            1
+             64 STORE_FAST               5 (xmax)
+
+220          66 LOAD_GLOBAL              3 (float)
+             68 LOAD_FAST                1 (f)
+             70 LOAD_METHOD              2 (readline)
+             72 CALL_METHOD              0
+             74 CALL_FUNCTION            1
+             76 STORE_FAST               6 (ymin)
+
+221          78 LOAD_GLOBAL              3 (float)
+             80 LOAD_FAST                1 (f)
+             82 LOAD_METHOD              2 (readline)
+             84 CALL_METHOD              0
+             86 CALL_FUNCTION            1
+             88 STORE_FAST               7 (ymax)
+
+222          90 LOAD_GLOBAL              4 (read_vector)
+             92 LOAD_FAST                1 (f)
+             94 LOAD_METHOD              2 (readline)
+             96 CALL_METHOD              0
+             98 CALL_FUNCTION            1
+            100 STORE_FAST               8 (camera)
+
+223         102 LOAD_GLOBAL              4 (read_vector)
+            104 LOAD_FAST                1 (f)
+            106 LOAD_METHOD              2 (readline)
+            108 CALL_METHOD              0
+            110 CALL_FUNCTION            1
+            112 STORE_FAST               9 (light)
+
+224         114 LOAD_GLOBAL              5 (list)
+            116 LOAD_GLOBAL              6 (DictReader)
+            118 LOAD_FAST                1 (f)
+            120 LOAD_CONST               2 (';')
+            122 LOAD_CONST               3 (('delimiter',))
+            124 CALL_FUNCTION_KW         2
+            126 CALL_FUNCTION            1
+            128 STORE_FAST              10 (objects)
+
+225         130 LOAD_FAST               10 (objects)
+            132 GET_ITER
+        >>  134 FOR_ITER               140 (to 276)
+            136 STORE_FAST              11 (obj)
+
+226         138 LOAD_GLOBAL              4 (read_vector)
+            140 LOAD_FAST               11 (obj)
+            142 LOAD_CONST               4 ('center')
+            144 BINARY_SUBSCR
+            146 CALL_FUNCTION            1
+            148 LOAD_FAST               11 (obj)
+            150 LOAD_CONST               4 ('center')
+            152 STORE_SUBSCR
+
+227         154 LOAD_GLOBAL              3 (float)
+            156 LOAD_FAST               11 (obj)
+            158 LOAD_CONST               5 ('radius')
+            160 BINARY_SUBSCR
+            162 CALL_FUNCTION            1
+            164 LOAD_FAST               11 (obj)
+            166 LOAD_CONST               5 ('radius')
+            168 STORE_SUBSCR
+
+228         170 LOAD_GLOBAL              4 (read_vector)
+            172 LOAD_FAST               11 (obj)
+            174 LOAD_CONST               6 ('ambiant')
+            176 BINARY_SUBSCR
+            178 CALL_FUNCTION            1
+            180 LOAD_FAST               11 (obj)
+            182 LOAD_CONST               6 ('ambiant')
+            184 STORE_SUBSCR
+
+229         186 LOAD_GLOBAL              4 (read_vector)
+            188 LOAD_FAST               11 (obj)
+            190 LOAD_CONST               7 ('diffuse')
+            192 BINARY_SUBSCR
+            194 CALL_FUNCTION            1
+            196 LOAD_FAST               11 (obj)
+            198 LOAD_CONST               7 ('diffuse')
+            200 STORE_SUBSCR
+
+230         202 LOAD_GLOBAL              4 (read_vector)
+            204 LOAD_FAST               11 (obj)
+            206 LOAD_CONST               8 ('specular')
+            208 BINARY_SUBSCR
+            210 CALL_FUNCTION            1
+            212 LOAD_FAST               11 (obj)
+            214 LOAD_CONST               8 ('specular')
+            216 STORE_SUBSCR
+
+231         218 LOAD_GLOBAL              7 (min)
+            220 LOAD_CONST               9 (100)
+            222 LOAD_GLOBAL              8 (max)
+            224 LOAD_CONST              10 (0)
+            226 LOAD_GLOBAL              3 (float)
+            228 LOAD_FAST               11 (obj)
+            230 LOAD_CONST              11 ('shininess')
+            232 BINARY_SUBSCR
+            234 CALL_FUNCTION            1
+            236 CALL_FUNCTION            2
+            238 CALL_FUNCTION            2
+            240 LOAD_FAST               11 (obj)
+            242 LOAD_CONST              11 ('shininess')
+            244 STORE_SUBSCR
+
+232         246 LOAD_GLOBAL              7 (min)
+            248 LOAD_CONST              12 (1)
+            250 LOAD_GLOBAL              8 (max)
+            252 LOAD_CONST              10 (0)
+            254 LOAD_GLOBAL              3 (float)
+            256 LOAD_FAST               11 (obj)
+            258 LOAD_CONST              13 ('reflection')
+            260 BINARY_SUBSCR
+            262 CALL_FUNCTION            1
+            264 CALL_FUNCTION            2
+            266 CALL_FUNCTION            2
+            268 LOAD_FAST               11 (obj)
+            270 LOAD_CONST              13 ('reflection')
+            272 STORE_SUBSCR
+            274 JUMP_ABSOLUTE          134
+        >>  276 POP_BLOCK
+            278 LOAD_CONST              14 (None)
+            280 DUP_TOP
+            282 DUP_TOP
+            284 CALL_FUNCTION            3
+            286 POP_TOP
+            288 JUMP_FORWARD            18 (to 308)
+        >>  290 <49>
+            292 EXTENDED_ARG             1
+            294 POP_JUMP_IF_TRUE       298
+            296 <48>
+        >>  298 POP_TOP
+            300 POP_TOP
+            302 POP_TOP
+            304 POP_EXCEPT
+            306 POP_TOP
+
+233     >>  308 LOAD_FAST                2 (w)
+            310 LOAD_FAST                3 (h)
+            312 LOAD_FAST                4 (xmin)
+            314 LOAD_FAST                5 (xmax)
+            316 LOAD_FAST                6 (ymin)
+            318 LOAD_FAST                7 (ymax)
+            320 LOAD_FAST                8 (camera)
+            322 LOAD_FAST                9 (light)
+            324 LOAD_FAST               10 (objects)
+            326 BUILD_TUPLE              9
+            328 POP_BLOCK
+            330 RETURN_VALUE
+
+234     >>  332 POP_TOP
+            334 POP_TOP
+            336 POP_TOP
+
+235         338 LOAD_GLOBAL              9 (ValueError)
+            340 LOAD_CONST              15 ('Erreur de chargement')
+            342 CALL_FUNCTION            1
+            344 RAISE_VARARGS            1
+            346 POP_EXCEPT
+            348 JUMP_FORWARD             2 (to 352)
+            350 <48>
+        >>  352 LOAD_CONST              14 (None)
+            354 RETURN_VALUE
+
+------ mul ------
+ 18           0 LOAD_FAST                0 (k)
+              2 LOAD_FAST                1 (v)
+              4 LOAD_CONST               1 (0)
+              6 BINARY_SUBSCR
+              8 BINARY_MULTIPLY
+             10 LOAD_FAST                0 (k)
+             12 LOAD_FAST                1 (v)
+             14 LOAD_CONST               2 (1)
+             16 BINARY_SUBSCR
+             18 BINARY_MULTIPLY
+             20 LOAD_FAST                0 (k)
+             22 LOAD_FAST                1 (v)
+             24 LOAD_CONST               3 (2)
+             26 BINARY_SUBSCR
+             28 BINARY_MULTIPLY
+             30 BUILD_TUPLE              3
+             32 RETURN_VALUE
+
+------ nearset_intersection ------
+153           0 LOAD_GLOBAL              0 (float)
+              2 LOAD_CONST               1 ('inf')
+              4 CALL_FUNCTION            1
+              6 STORE_FAST               3 (min_dist)
+
+154           8 LOAD_CONST               0 (None)
+             10 STORE_FAST               4 (min_obj)
+
+155          12 LOAD_FAST                0 (objs)
+             14 GET_ITER
+        >>   16 FOR_ITER                50 (to 68)
+             18 STORE_FAST               5 (obj)
+
+156          20 LOAD_GLOBAL              1 (sphere_intersect)
+             22 LOAD_FAST                5 (obj)
+             24 LOAD_CONST               2 ('center')
+             26 BINARY_SUBSCR
+             28 LOAD_FAST                5 (obj)
+             30 LOAD_CONST               3 ('radius')
+             32 BINARY_SUBSCR
+             34 LOAD_FAST                1 (o)
+             36 LOAD_FAST                2 (d)
+             38 CALL_FUNCTION            4
+             40 STORE_FAST               6 (k)
+
+157          42 LOAD_FAST                6 (k)
+             44 LOAD_CONST               0 (None)
+             46 COMPARE_OP               3 (!=)
+             48 POP_JUMP_IF_FALSE       16
+             50 LOAD_FAST                6 (k)
+             52 LOAD_FAST                3 (min_dist)
+             54 COMPARE_OP               0 (<)
+             56 POP_JUMP_IF_FALSE       16
+
+158          58 LOAD_FAST                6 (k)
+             60 STORE_FAST               3 (min_dist)
+
+159          62 LOAD_FAST                5 (obj)
+             64 STORE_FAST               4 (min_obj)
+             66 JUMP_ABSOLUTE           16
+
+161     >>   68 LOAD_FAST                4 (min_obj)
+             70 LOAD_FAST                3 (min_dist)
+             72 BUILD_TUPLE              2
+             74 RETURN_VALUE
+
+------ norm ------
+ 26           0 LOAD_GLOBAL              0 (sqrt)
+              2 LOAD_GLOBAL              1 (dot)
+              4 LOAD_FAST                0 (v)
+              6 LOAD_FAST                0 (v)
+              8 CALL_FUNCTION            2
+             10 CALL_FUNCTION            1
+             12 RETURN_VALUE
+
+------ normalize ------
+ 29           0 LOAD_GLOBAL              0 (mul)
+              2 LOAD_CONST               1 (1)
+              4 LOAD_GLOBAL              1 (norm)
+              6 LOAD_FAST                0 (v)
+              8 CALL_FUNCTION            1
+             10 BINARY_TRUE_DIVIDE
+             12 LOAD_FAST                0 (v)
+             14 CALL_FUNCTION            2
+             16 RETURN_VALUE
+
+------ pixel_to_point ------
+136           0 LOAD_FAST                3 (xmax)
+              2 LOAD_FAST                2 (xmin)
+              4 BINARY_SUBTRACT
+              6 LOAD_FAST                0 (w)
+              8 BINARY_TRUE_DIVIDE
+             10 LOAD_FAST                6 (px)
+             12 BINARY_MULTIPLY
+             14 LOAD_FAST                2 (xmin)
+             16 BINARY_ADD
+             18 LOAD_FAST                5 (ymax)
+             20 LOAD_FAST                4 (ymin)
+             22 BINARY_SUBTRACT
+             24 LOAD_FAST                1 (h)
+             26 BINARY_TRUE_DIVIDE
+             28 LOAD_FAST                7 (py)
+             30 BINARY_MULTIPLY
+             32 LOAD_FAST                4 (ymin)
+             34 BINARY_ADD
+             36 BUILD_TUPLE              2
+             38 RETURN_VALUE
+
+------ read_vector ------
+203           0 LOAD_FAST                0 (s)
+              2 LOAD_METHOD              0 (split)
+              4 LOAD_CONST               1 (',')
+              6 CALL_METHOD              1
+              8 STORE_FAST               1 (fields)
+
+204          10 LOAD_GLOBAL              1 (len)
+             12 LOAD_FAST                1 (fields)
+             14 CALL_FUNCTION            1
+             16 LOAD_CONST               2 (3)
+             18 COMPARE_OP               3 (!=)
+             20 POP_JUMP_IF_FALSE       30
+
+205          22 LOAD_GLOBAL              2 (ValueError)
+             24 LOAD_CONST               3 ('Erreur de chargement')
+             26 CALL_FUNCTION            1
+             28 RAISE_VARARGS            1
+
+206     >>   30 LOAD_GLOBAL              3 (range)
+             32 LOAD_CONST               2 (3)
+             34 CALL_FUNCTION            1
+             36 GET_ITER
+        >>   38 FOR_ITER                20 (to 60)
+             40 STORE_FAST               2 (i)
+
+207          42 LOAD_GLOBAL              4 (float)
+             44 LOAD_FAST                1 (fields)
+             46 LOAD_FAST                2 (i)
+             48 BINARY_SUBSCR
+             50 CALL_FUNCTION            1
+             52 LOAD_FAST                1 (fields)
+             54 LOAD_FAST                2 (i)
+             56 STORE_SUBSCR
+             58 JUMP_ABSOLUTE           38
+
+208     >>   60 LOAD_FAST                1 (fields)
+             62 RETURN_VALUE
+
+------ save_image ------
+108           0 LOAD_FAST                1 (img)
+              2 UNPACK_SEQUENCE          3
+              4 STORE_FAST               2 (buff)
+              6 STORE_FAST               3 (w)
+              8 STORE_FAST               4 (h)
+
+109          10 LOAD_GLOBAL              0 (open)
+             12 LOAD_FAST                0 (chemin)
+             14 LOAD_CONST               1 ('wb')
+             16 CALL_FUNCTION            2
+             18 SETUP_WITH              92 (to 112)
+             20 STORE_FAST               5 (f)
+
+110          22 LOAD_FAST                5 (f)
+             24 LOAD_METHOD              1 (write)
+             26 LOAD_CONST               2 (b'P6\n')
+             28 CALL_METHOD              1
+             30 POP_TOP
+
+111          32 LOAD_FAST                5 (f)
+             34 LOAD_METHOD              1 (write)
+             36 LOAD_GLOBAL              2 (str)
+             38 LOAD_FAST                3 (w)
+             40 CALL_FUNCTION            1
+             42 LOAD_METHOD              3 (encode)
+             44 CALL_METHOD              0
+             46 CALL_METHOD              1
+             48 POP_TOP
+
+112          50 LOAD_FAST                5 (f)
+             52 LOAD_METHOD              1 (write)
+             54 LOAD_CONST               3 (b' ')
+             56 CALL_METHOD              1
+             58 POP_TOP
+
+113          60 LOAD_FAST                5 (f)
+             62 LOAD_METHOD              1 (write)
+             64 LOAD_GLOBAL              2 (str)
+             66 LOAD_FAST                4 (h)
+             68 CALL_FUNCTION            1
+             70 LOAD_METHOD              3 (encode)
+             72 CALL_METHOD              0
+             74 CALL_METHOD              1
+             76 POP_TOP
+
+114          78 LOAD_FAST                5 (f)
+             80 LOAD_METHOD              1 (write)
+             82 LOAD_CONST               4 (b'\n255\n')
+             84 CALL_METHOD              1
+             86 POP_TOP
+
+115          88 LOAD_FAST                5 (f)
+             90 LOAD_METHOD              1 (write)
+             92 LOAD_FAST                2 (buff)
+             94 CALL_METHOD              1
+             96 POP_TOP
+             98 POP_BLOCK
+            100 LOAD_CONST               5 (None)
+            102 DUP_TOP
+            104 DUP_TOP
+            106 CALL_FUNCTION            3
+            108 POP_TOP
+            110 JUMP_FORWARD            16 (to 128)
+        >>  112 <49>
+            114 POP_JUMP_IF_TRUE       118
+            116 <48>
+        >>  118 POP_TOP
+            120 POP_TOP
+            122 POP_TOP
+            124 POP_EXCEPT
+            126 POP_TOP
+        >>  128 LOAD_CONST               5 (None)
+            130 RETURN_VALUE
+
+------ set_pixel ------
+ 99           0 LOAD_FAST                0 (img)
+              2 UNPACK_SEQUENCE          3
+              4 STORE_FAST               4 (buff)
+              6 STORE_FAST               5 (w)
+              8 STORE_FAST               6 (h)
+
+100          10 LOAD_FAST                2 (y)
+             12 LOAD_CONST               1 (3)
+             14 BINARY_MULTIPLY
+             16 LOAD_FAST                5 (w)
+             18 BINARY_MULTIPLY
+             20 LOAD_CONST               1 (3)
+             22 LOAD_FAST                1 (x)
+             24 BINARY_MULTIPLY
+             26 BINARY_ADD
+             28 STORE_FAST               7 (idx)
+
+101          30 LOAD_GLOBAL              0 (max)
+             32 LOAD_CONST               2 (0)
+             34 LOAD_GLOBAL              1 (min)
+             36 LOAD_CONST               3 (255)
+             38 LOAD_GLOBAL              2 (int)
+             40 LOAD_FAST                3 (c)
+             42 LOAD_CONST               2 (0)
+             44 BINARY_SUBSCR
+             46 LOAD_CONST               3 (255)
+             48 BINARY_MULTIPLY
+             50 CALL_FUNCTION            1
+             52 CALL_FUNCTION            2
+             54 CALL_FUNCTION            2
+             56 LOAD_FAST                4 (buff)
+             58 LOAD_FAST                7 (idx)
+             60 STORE_SUBSCR
+
+102          62 LOAD_GLOBAL              0 (max)
+             64 LOAD_CONST               2 (0)
+             66 LOAD_GLOBAL              1 (min)
+             68 LOAD_CONST               3 (255)
+             70 LOAD_GLOBAL              2 (int)
+             72 LOAD_FAST                3 (c)
+             74 LOAD_CONST               4 (1)
+             76 BINARY_SUBSCR
+             78 LOAD_CONST               3 (255)
+             80 BINARY_MULTIPLY
+             82 CALL_FUNCTION            1
+             84 CALL_FUNCTION            2
+             86 CALL_FUNCTION            2
+             88 LOAD_FAST                4 (buff)
+             90 LOAD_FAST                7 (idx)
+             92 LOAD_CONST               4 (1)
+             94 BINARY_ADD
+             96 STORE_SUBSCR
+
+103          98 LOAD_GLOBAL              0 (max)
+            100 LOAD_CONST               2 (0)
+            102 LOAD_GLOBAL              1 (min)
+            104 LOAD_CONST               3 (255)
+            106 LOAD_GLOBAL              2 (int)
+            108 LOAD_FAST                3 (c)
+            110 LOAD_CONST               5 (2)
+            112 BINARY_SUBSCR
+            114 LOAD_CONST               3 (255)
+            116 BINARY_MULTIPLY
+            118 CALL_FUNCTION            1
+            120 CALL_FUNCTION            2
+            122 CALL_FUNCTION            2
+            124 LOAD_FAST                4 (buff)
+            126 LOAD_FAST                7 (idx)
+            128 LOAD_CONST               5 (2)
+            130 BINARY_ADD
+            132 STORE_SUBSCR
+            134 LOAD_CONST               6 (None)
+            136 RETURN_VALUE
+
+------ sphere_intersect ------
+139           0 LOAD_GLOBAL              0 (sub)
+              2 LOAD_FAST                2 (v)
+              4 LOAD_FAST                0 (c)
+              6 CALL_FUNCTION            2
+              8 STORE_FAST               4 (vrad)
+
+140          10 LOAD_CONST               1 (2)
+             12 LOAD_GLOBAL              1 (dot)
+             14 LOAD_FAST                3 (d)
+             16 LOAD_FAST                4 (vrad)
+             18 CALL_FUNCTION            2
+             20 BINARY_MULTIPLY
+             22 STORE_FAST               5 (b)
+
+141          24 LOAD_GLOBAL              2 (norm)
+             26 LOAD_FAST                4 (vrad)
+             28 CALL_FUNCTION            1
+             30 LOAD_CONST               1 (2)
+             32 BINARY_POWER
+             34 LOAD_FAST                1 (r)
+             36 LOAD_FAST                1 (r)
+             38 BINARY_MULTIPLY
+             40 BINARY_SUBTRACT
+             42 STORE_FAST               0 (c)
+
+142          44 LOAD_FAST                5 (b)
+             46 LOAD_FAST                5 (b)
+             48 BINARY_MULTIPLY
+             50 LOAD_CONST               2 (4)
+             52 LOAD_FAST                0 (c)
+             54 BINARY_MULTIPLY
+             56 BINARY_SUBTRACT
+             58 STORE_FAST               6 (delta)
+
+143          60 LOAD_FAST                6 (delta)
+             62 LOAD_CONST               3 (0)
+             64 COMPARE_OP               4 (>)
+             66 POP_JUMP_IF_FALSE      102
+
+144          68 LOAD_GLOBAL              3 (sqrt)
+             70 LOAD_FAST                6 (delta)
+             72 CALL_FUNCTION            1
+             74 STORE_FAST               7 (sqd)
+
+145          76 LOAD_FAST                5 (b)
+             78 UNARY_NEGATIVE
+             80 LOAD_FAST                7 (sqd)
+             82 BINARY_SUBTRACT
+             84 STORE_FAST               8 (t2)
+
+146          86 LOAD_FAST                8 (t2)
+             88 LOAD_CONST               3 (0)
+             90 COMPARE_OP               4 (>)
+             92 POP_JUMP_IF_FALSE      102
+
+147          94 LOAD_CONST               4 (0.5)
+             96 LOAD_FAST                8 (t2)
+             98 BINARY_MULTIPLY
+            100 RETURN_VALUE
+
+148     >>  102 LOAD_CONST               0 (None)
+            104 RETURN_VALUE
+
+------ sub ------
+ 14           0 LOAD_FAST                0 (v1)
+              2 LOAD_CONST               1 (0)
+              4 BINARY_SUBSCR
+              6 LOAD_FAST                1 (v2)
+              8 LOAD_CONST               1 (0)
+             10 BINARY_SUBSCR
+             12 BINARY_SUBTRACT
+             14 LOAD_FAST                0 (v1)
+             16 LOAD_CONST               2 (1)
+             18 BINARY_SUBSCR
+             20 LOAD_FAST                1 (v2)
+             22 LOAD_CONST               2 (1)
+             24 BINARY_SUBSCR
+             26 BINARY_SUBTRACT
+             28 LOAD_FAST                0 (v1)
+             30 LOAD_CONST               3 (2)
+             32 BINARY_SUBSCR
+             34 LOAD_FAST                1 (v2)
+             36 LOAD_CONST               3 (2)
+             38 BINARY_SUBSCR
+             40 BINARY_SUBTRACT
+             42 BUILD_TUPLE              3
+             44 RETURN_VALUE
+
+------ test_add ------
+ 33           0 LOAD_CONST               1 ((1, 1, 1))
+              2 STORE_FAST               0 (v1)
+
+ 34           4 LOAD_CONST               2 ((1, 2, 3))
+              6 STORE_FAST               1 (v2)
+
+ 35           8 LOAD_GLOBAL              0 (add)
+             10 LOAD_FAST                0 (v1)
+             12 LOAD_FAST                1 (v2)
+             14 CALL_FUNCTION            2
+             16 LOAD_GLOBAL              0 (add)
+             18 LOAD_FAST                1 (v2)
+             20 LOAD_FAST                0 (v1)
+             22 CALL_FUNCTION            2
+             24 COMPARE_OP               2 (==)
+             26 POP_JUMP_IF_TRUE        32
+             28 <74>
+             30 RAISE_VARARGS            1
+
+ 36     >>   32 LOAD_GLOBAL              0 (add)
+             34 LOAD_FAST                0 (v1)
+             36 LOAD_FAST                1 (v2)
+             38 CALL_FUNCTION            2
+             40 LOAD_CONST               3 ((2, 3, 4))
+             42 COMPARE_OP               2 (==)
+             44 POP_JUMP_IF_TRUE        50
+             46 <74>
+             48 RAISE_VARARGS            1
+        >>   50 LOAD_CONST               4 (None)
+             52 RETURN_VALUE
+
+------ test_dot ------
+ 59           0 LOAD_CONST               1 ((1, 0, 0))
+              2 STORE_FAST               0 (v1)
+
+ 60           4 LOAD_CONST               2 ((0, 0, 1))
+              6 STORE_FAST               1 (v2)
+
+ 61           8 LOAD_CONST               3 ((1, 1, 0))
+             10 STORE_FAST               2 (v3)
+
+ 62          12 LOAD_GLOBAL              0 (dot)
+             14 LOAD_FAST                0 (v1)
+             16 LOAD_FAST                1 (v2)
+             18 CALL_FUNCTION            2
+             20 LOAD_CONST               4 (0)
+             22 COMPARE_OP               2 (==)
+             24 POP_JUMP_IF_TRUE        30
+             26 <74>
+             28 RAISE_VARARGS            1
+
+ 63     >>   30 LOAD_GLOBAL              0 (dot)
+             32 LOAD_FAST                2 (v3)
+             34 LOAD_FAST                1 (v2)
+             36 CALL_FUNCTION            2
+             38 LOAD_CONST               4 (0)
+             40 COMPARE_OP               2 (==)
+             42 POP_JUMP_IF_TRUE        48
+             44 <74>
+             46 RAISE_VARARGS            1
+        >>   48 LOAD_CONST               5 (None)
+             50 RETURN_VALUE
+
+------ test_img ------
+118           0 LOAD_GLOBAL              0 (init_image)
+              2 LOAD_CONST               1 (100)
+              4 LOAD_CONST               1 (100)
+              6 CALL_FUNCTION            2
+              8 STORE_FAST               0 (im1)
+
+119          10 LOAD_GLOBAL              1 (save_image)
+             12 LOAD_CONST               2 ('black100.ppm')
+             14 LOAD_FAST                0 (im1)
+             16 CALL_FUNCTION            2
+             18 POP_TOP
+
+120          20 LOAD_GLOBAL              0 (init_image)
+             22 LOAD_CONST               3 (200)
+             24 LOAD_CONST               3 (200)
+             26 CALL_FUNCTION            2
+             28 STORE_FAST               1 (im2)
+
+122          30 LOAD_GLOBAL              2 (range)
+             32 LOAD_CONST               3 (200)
+             34 CALL_FUNCTION            1
+             36 GET_ITER
+        >>   38 FOR_ITER                66 (to 106)
+             40 STORE_FAST               2 (i)
+
+123          42 LOAD_GLOBAL              2 (range)
+             44 LOAD_CONST               3 (200)
+             46 CALL_FUNCTION            1
+             48 GET_ITER
+        >>   50 FOR_ITER                52 (to 104)
+             52 STORE_FAST               3 (j)
+
+124          54 LOAD_FAST                2 (i)
+             56 LOAD_CONST               4 (10)
+             58 BINARY_FLOOR_DIVIDE
+             60 LOAD_CONST               5 (2)
+             62 BINARY_MODULO
+             64 LOAD_FAST                3 (j)
+             66 LOAD_CONST               4 (10)
+             68 BINARY_FLOOR_DIVIDE
+             70 LOAD_CONST               5 (2)
+             72 BINARY_MODULO
+             74 COMPARE_OP               2 (==)
+             76 POP_JUMP_IF_FALSE       84
+
+125          78 LOAD_CONST               6 ((1, 0, 0))
+             80 STORE_FAST               4 (couleur)
+             82 JUMP_FORWARD             4 (to 88)
+
+127     >>   84 LOAD_CONST               7 ((0, 1, 1))
+             86 STORE_FAST               4 (couleur)
+
+128     >>   88 LOAD_GLOBAL              3 (set_pixel)
+             90 LOAD_FAST                1 (im2)
+             92 LOAD_FAST                2 (i)
+             94 LOAD_FAST                3 (j)
+             96 LOAD_FAST                4 (couleur)
+             98 CALL_FUNCTION            4
+            100 POP_TOP
+            102 JUMP_ABSOLUTE           50
+        >>  104 JUMP_ABSOLUTE           38
+
+129     >>  106 LOAD_GLOBAL              1 (save_image)
+            108 LOAD_CONST               8 ('test_img.ppm')
+            110 LOAD_FAST                1 (im2)
+            112 CALL_FUNCTION            2
+            114 POP_TOP
+            116 LOAD_CONST               0 (None)
+            118 RETURN_VALUE
+
+------ test_mul ------
+ 51           0 LOAD_CONST               1 ((1, 2, 3))
+              2 STORE_FAST               0 (v1)
+
+ 52           4 LOAD_GLOBAL              0 (mul)
+              6 LOAD_CONST               2 (3)
+              8 LOAD_FAST                0 (v1)
+             10 CALL_FUNCTION            2
+             12 LOAD_CONST               3 ((3, 6, 9))
+             14 COMPARE_OP               2 (==)
+             16 POP_JUMP_IF_TRUE        22
+             18 <74>
+             20 RAISE_VARARGS            1
+
+ 53     >>   22 LOAD_GLOBAL              0 (mul)
+             24 LOAD_CONST               4 (-3)
+             26 LOAD_FAST                0 (v1)
+             28 CALL_FUNCTION            2
+             30 LOAD_CONST               5 ((-3, -6, -9))
+             32 COMPARE_OP               2 (==)
+             34 POP_JUMP_IF_TRUE        40
+             36 <74>
+             38 RAISE_VARARGS            1
+        >>   40 LOAD_CONST               6 (None)
+             42 RETURN_VALUE
+
+------ test_norm ------
+ 69           0 LOAD_GLOBAL              0 (norm)
+              2 LOAD_CONST               1 ((1, 0, 0))
+              4 CALL_FUNCTION            1
+              6 LOAD_CONST               2 (1)
+              8 COMPARE_OP               2 (==)
+             10 POP_JUMP_IF_TRUE        16
+             12 <74>
+             14 RAISE_VARARGS            1
+
+ 70     >>   16 LOAD_GLOBAL              0 (norm)
+             18 LOAD_CONST               3 ((1, 1, 1))
+             20 CALL_FUNCTION            1
+             22 LOAD_GLOBAL              1 (sqrt)
+             24 LOAD_CONST               4 (3)
+             26 CALL_FUNCTION            1
+             28 COMPARE_OP               2 (==)
+             30 POP_JUMP_IF_TRUE        36
+             32 <74>
+             34 RAISE_VARARGS            1
+        >>   36 LOAD_CONST               5 (None)
+             38 RETURN_VALUE
+
+------ test_normalize ------
+ 76           0 LOAD_GLOBAL              0 (norm)
+              2 LOAD_GLOBAL              1 (normalize)
+              4 LOAD_CONST               1 ((2, 0, 0))
+              6 CALL_FUNCTION            1
+              8 CALL_FUNCTION            1
+             10 LOAD_CONST               2 (1)
+             12 COMPARE_OP               2 (==)
+             14 POP_JUMP_IF_TRUE        20
+             16 <74>
+             18 RAISE_VARARGS            1
+
+ 77     >>   20 LOAD_GLOBAL              0 (norm)
+             22 LOAD_GLOBAL              1 (normalize)
+             24 LOAD_CONST               3 ((4, 0, 0))
+             26 CALL_FUNCTION            1
+             28 CALL_FUNCTION            1
+             30 LOAD_CONST               2 (1)
+             32 COMPARE_OP               2 (==)
+             34 POP_JUMP_IF_TRUE        40
+             36 <74>
+             38 RAISE_VARARGS            1
+        >>   40 LOAD_CONST               4 (None)
+             42 RETURN_VALUE
+
+------ test_sub ------
+ 42           0 LOAD_CONST               1 ((1, 1, 1))
+              2 STORE_FAST               0 (v1)
+
+ 43           4 LOAD_CONST               2 ((1, 2, 3))
+              6 STORE_FAST               1 (v2)
+
+ 44           8 LOAD_GLOBAL              0 (sub)
+             10 LOAD_FAST                0 (v1)
+             12 LOAD_FAST                1 (v2)
+             14 CALL_FUNCTION            2
+             16 LOAD_CONST               3 ((0, -1, -2))
+             18 COMPARE_OP               2 (==)
+             20 POP_JUMP_IF_TRUE        26
+             22 <74>
+             24 RAISE_VARARGS            1
+
+ 45     >>   26 LOAD_GLOBAL              0 (sub)
+             28 LOAD_FAST                0 (v1)
+             30 LOAD_CONST               4 ((0, 0, 0))
+             32 CALL_FUNCTION            2
+             34 LOAD_FAST                0 (v1)
+             36 COMPARE_OP               2 (==)
+             38 POP_JUMP_IF_TRUE        44
+             40 <74>
+             42 RAISE_VARARGS            1
+        >>   44 LOAD_CONST               5 (None)
+             46 RETURN_VALUE
+
+------ trace ------
+171           0 LOAD_GLOBAL              0 (init_image)
+              2 LOAD_FAST                0 (w)
+              4 LOAD_FAST                1 (h)
+              6 CALL_FUNCTION            2
+              8 STORE_FAST               9 (img)
+
+173          10 LOAD_GLOBAL              1 (range)
+             12 LOAD_FAST                1 (h)
+             14 CALL_FUNCTION            1
+             16 GET_ITER
+        >>   18 FOR_ITER               226 (to 246)
+             20 STORE_FAST              10 (py)
+
+174          22 LOAD_GLOBAL              1 (range)
+             24 LOAD_FAST                0 (w)
+             26 CALL_FUNCTION            1
+             28 GET_ITER
+        >>   30 FOR_ITER               212 (to 244)
+             32 STORE_FAST              11 (px)
+
+175          34 LOAD_GLOBAL              2 (pixel_to_point)
+             36 LOAD_FAST                0 (w)
+             38 LOAD_FAST                1 (h)
+             40 LOAD_FAST                2 (xmin)
+             42 LOAD_FAST                3 (xmax)
+             44 LOAD_FAST                4 (ymin)
+             46 LOAD_FAST                5 (ymax)
+             48 LOAD_FAST               11 (px)
+             50 LOAD_FAST               10 (py)
+             52 CALL_FUNCTION            8
+             54 UNPACK_SEQUENCE          2
+             56 STORE_FAST              12 (x)
+             58 STORE_FAST              13 (y)
+
+176          60 LOAD_FAST               12 (x)
+             62 LOAD_FAST               13 (y)
+             64 LOAD_CONST               1 (0)
+             66 BUILD_TUPLE              3
+             68 STORE_FAST              14 (p)
+
+177          70 LOAD_GLOBAL              3 (sub)
+             72 LOAD_FAST               14 (p)
+             74 LOAD_FAST                6 (camera)
+             76 CALL_FUNCTION            2
+             78 STORE_FAST              15 (vp)
+
+178          80 LOAD_GLOBAL              4 (normalize)
+             82 LOAD_FAST               15 (vp)
+             84 CALL_FUNCTION            1
+             86 STORE_FAST              16 (d)
+
+180          88 LOAD_GLOBAL              5 (nearset_intersection)
+             90 LOAD_FAST                8 (objs)
+             92 LOAD_FAST                6 (camera)
+             94 LOAD_FAST               16 (d)
+             96 CALL_FUNCTION            3
+             98 UNPACK_SEQUENCE          2
+            100 STORE_FAST              17 (obj)
+            102 STORE_FAST              18 (dist)
+
+181         104 LOAD_FAST               17 (obj)
+            106 LOAD_CONST               0 (None)
+            108 <117>                    0
+            110 POP_JUMP_IF_FALSE      118
+
+182         112 LOAD_CONST               2 ((0, 0, 0))
+            114 STORE_FAST              19 (couleur)
+            116 JUMP_FORWARD           102 (to 220)
+
+184     >>  118 LOAD_GLOBAL              6 (add)
+            120 LOAD_FAST                6 (camera)
+            122 LOAD_GLOBAL              7 (mul)
+            124 LOAD_FAST               18 (dist)
+            126 LOAD_FAST               16 (d)
+            128 CALL_FUNCTION            2
+            130 CALL_FUNCTION            2
+            132 STORE_FAST              20 (x_point)
+
+185         134 LOAD_GLOBAL              4 (normalize)
+            136 LOAD_GLOBAL              3 (sub)
+            138 LOAD_FAST                7 (light)
+            140 LOAD_FAST               20 (x_point)
+            142 CALL_FUNCTION            2
+            144 CALL_FUNCTION            1
+            146 STORE_FAST              21 (l)
+
+186         148 LOAD_GLOBAL              5 (nearset_intersection)
+            150 LOAD_FAST                8 (objs)
+            152 LOAD_FAST               20 (x_point)
+            154 LOAD_FAST               21 (l)
+            156 CALL_FUNCTION            3
+            158 UNPACK_SEQUENCE          2
+            160 STORE_FAST              22 (obstacle)
+            162 STORE_FAST              23 (dist_obst)
+
+187         164 LOAD_FAST               23 (dist_obst)
+            166 LOAD_GLOBAL              8 (norm)
+            168 LOAD_GLOBAL              3 (sub)
+            170 LOAD_FAST                7 (light)
+            172 LOAD_FAST               20 (x_point)
+            174 CALL_FUNCTION            2
+            176 CALL_FUNCTION            1
+            178 COMPARE_OP               0 (<)
+            180 POP_JUMP_IF_FALSE      188
+
+188         182 LOAD_CONST               2 ((0, 0, 0))
+            184 STORE_FAST              19 (couleur)
+            186 JUMP_FORWARD            32 (to 220)
+
+190     >>  188 LOAD_GLOBAL              4 (normalize)
+            190 LOAD_GLOBAL              3 (sub)
+            192 LOAD_FAST               20 (x_point)
+            194 LOAD_FAST               17 (obj)
+            196 LOAD_CONST               3 ('center')
+            198 BINARY_SUBSCR
+            200 CALL_FUNCTION            2
+            202 CALL_FUNCTION            1
+            204 STORE_FAST              24 (n)
+
+191         206 LOAD_GLOBAL              9 (compute_color)
+            208 LOAD_FAST               17 (obj)
+            210 LOAD_FAST                6 (camera)
+            212 LOAD_FAST               24 (n)
+            214 LOAD_FAST               21 (l)
+            216 CALL_FUNCTION            4
+            218 STORE_FAST              19 (couleur)
+
+193     >>  220 LOAD_GLOBAL             10 (set_pixel)
+            222 LOAD_FAST                9 (img)
+            224 LOAD_FAST               11 (px)
+            226 LOAD_FAST                1 (h)
+            228 LOAD_FAST               10 (py)
+            230 BINARY_SUBTRACT
+            232 LOAD_CONST               4 (1)
+            234 BINARY_SUBTRACT
+            236 LOAD_FAST               19 (couleur)
+            238 CALL_FUNCTION            4
+            240 POP_TOP
+            242 JUMP_ABSOLUTE           30
+        >>  244 JUMP_ABSOLUTE           18
+
+195     >>  246 LOAD_FAST                9 (img)
+            248 RETURN_VALUE
+
+------ usage ------
+238           0 LOAD_GLOBAL              0 (print)
+              2 LOAD_CONST               1 ('Usage: ')
+              4 LOAD_GLOBAL              1 (argv)
+              6 LOAD_CONST               2 (0)
+              8 BINARY_SUBSCR
+             10 FORMAT_VALUE             0
+             12 LOAD_CONST               3 (' <fichier.scene>')
+             14 BUILD_STRING             3
+             16 CALL_FUNCTION            1
+             18 POP_TOP
+
+239          20 LOAD_GLOBAL              2 (exit)
+             22 LOAD_CONST               4 (1)
+             24 CALL_FUNCTION            1
+             26 POP_TOP
+             28 LOAD_CONST               0 (None)
+             30 RETURN_VALUE
+
