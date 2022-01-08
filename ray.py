@@ -81,7 +81,8 @@ test_norm()
 
 def test_normalize():
     """Fonction de test pour normalize"""
-    ##À COMPLÉTER
+    assert normalize((0,2)) == (0,1)
+    assert normalize((3,0)) == (1,0)
 
 test_normalize()
 
@@ -105,10 +106,10 @@ def set_pixel(img, x, y, c):
     triplet (r, v, b) de valeurs. Les valeurs supérieures à 1 (resp. inférieures à
     0) sont mises à 1 (resp. 0).
     """
-    ar, width, height = img
+    arr, width, height = img
     pos = 3*y*width + 3*x
     for i in [0, 1, 2]:
-        ar[pos+i] = max(0, min(255, int(c[i]*255)))
+        arr[pos+i] = max(0, min(255, int(c[i]*255)))
     return img
 
 ### Fonction donnée, ne pas modifier
@@ -161,13 +162,12 @@ def sphere_intersect(c, r, v, d):
     """Calcule l'intersection entre une sphere de centre c (vecteur) et de rayon r
     (flottant) et une droite passant par v (vecteur) et de direction d (vecteur)
     """
-    return corrige_ray.sphere_intersect(c, r, v, d)
     b = 2*dot(d, sub(v, c))
     delta = b**2 - 4*((norm(sub(v, c))**2) - (r**2))
     if delta < 0:
         return None
 
-    k2 = -b-sqrt(delta)/2
+    k2 = (-b-sqrt(delta))/2
     if k2 < 0:
         return None
 
